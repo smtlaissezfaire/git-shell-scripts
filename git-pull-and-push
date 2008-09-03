@@ -1,0 +1,4 @@
+#!/usr/bin/env
+
+git pull --rebase
+git push

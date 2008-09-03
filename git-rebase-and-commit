@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-git-rebase-with-fetch
-echo "* Pushing changes from master"
-git push
