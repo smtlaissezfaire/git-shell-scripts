@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+
+require "rubygems"
+require "colored"
+
+repos = ARGV[0]
+
+if repos
+  puts `git push origin :heads/#{repos}`
+else
+  puts "* Usage:"
+  puts ""
+  puts "  git-delete-remote-branch branch-name"
+  puts ""
+  puts "You must enter a repos to delete".red
+  puts ""
+end

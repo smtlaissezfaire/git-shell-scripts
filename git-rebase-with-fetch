@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+echo "* Fetching objects"
+git fetch
+echo "* Checking out master"
+git checkout master
+echo "* Rebasing"
+git rebase remotes/origin/master
