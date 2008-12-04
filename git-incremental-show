@@ -1,0 +1,11 @@
+ #!/bin/bash
+
+revisions=$(git rev-list "$@" | sort --reverse)
+
+for revision in $revisions; do
+  git show $revision
+
+  echo -n "Press enter to continue ..."
+  read
+  clear
+done
