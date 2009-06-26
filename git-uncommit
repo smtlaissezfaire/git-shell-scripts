@@ -8,7 +8,7 @@ sha1=$1
 file=$2
  
 if [[ $sha1 ]]; then
-git diff $sha1..$sha1^ | patch -p1
+    git diff $sha1..$sha1^ | patch -p1
 else
-output_help
+    output_help
 fi
