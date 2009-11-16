@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-revisions=$(git rev-list "$@" | sort --reverse)
+start_revision="$@"
+
+revisions=$(git rev-list "$start_revision")
 
 for revision in $revisions; do
   git show $revision
