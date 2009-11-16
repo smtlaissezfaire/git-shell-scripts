@@ -6,7 +6,7 @@ revisions=$(git rev-list "$start_revision")
 
 for revision in $revisions; do
   git show $revision
-  echo -n "Press enter to continue ..."
+  echo -n "Press enter to continue, Ctrl-C to quit ..."
   read
   clear
 done
