@@ -2,6 +2,10 @@
 
 start_revision="$@"
 
+if [[ $start_revision -eq "" ]]; then
+  start_revision="HEAD"
+fi
+
 revisions=$(git rev-list "$start_revision")
 
 for revision in $revisions; do
