@@ -1,0 +1,18 @@
+#!/bin/bash
+
+branch=$1
+
+function output_help {
+  echo ""
+  echo "usage: "
+  echo ""
+  echo "  git-create-empty-branch ref"
+}
+
+if [[ $branch ]]; then
+  git symbolic-ref HEAD refs/heads/$branch
+  rm .git/index
+  git clean -fdx
+else
+  output_help
+fi
