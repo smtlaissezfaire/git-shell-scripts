@@ -1,0 +1,42 @@
+#!/bin/bash
+
+function output_help {
+	echo "git-tag-earlier-commit "
+	echo "  - A helper utility that creates (retroactively) an annotated tag"
+	echo "      for any commit, with its date being set to the date of commit of tag"
+	echo "      for more info: https://github.com/openmelody/melody/wiki/devbest-tagging"
+	echo " "
+    echo " usage: git-tag-earlier-commit "
+    echo " Parameters to be entered at prompt:"
+    echo "  -- sha1, needs to exist in current checked out branch"
+    echo "  -- tag string"
+    echo "  -- message for annotated tag"
+}
+
+read -p "Enter commit SHA to be tagged --> " sha1
+if ! [ "$(git merge-base $sha1 HEAD)" = "$sha1" ]; then
+  echo "Invalid commit sha: $sha1 ; does not exist"
+  echo "  "
+  output_help
+  exit 1
+fi
+
+read -p "Enter tag string --> " tagstring
+read -p "Enter message for annotation --> " commitmsg
+
+if [[ $sha1 ]]; then
+	echo " "
+	current_branch=$(git rev-parse --symbolic-full-name --abbrev-ref HEAD)
+	new_branch=br_$sha1
+	git checkout -b $new_branch $sha1 2> /dev/null
+	GIT_COMMITTER_DATE="$(git show --format=%aD  | head -1)" git tag -a $tagstring -m '$commitmsg'
+	git checkout $current_branch 2> /dev/null
+	git branch -D $new_branch 1> /dev/null
+	
+	echo "tag <$tagstring> applied to SHA/commit <$sha1> "
+	echo "(tag not pushed upstream yet; to be done manually)"
+
+else
+    output_help
+fi
+
